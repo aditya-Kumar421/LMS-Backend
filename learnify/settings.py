@@ -1,16 +1,19 @@
 from pathlib import Path
 from datetime import timedelta
-
+from decouple import config
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 import cloudinary_storage	
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-gl)bw1jjo-#4l0vn@c1tot5*@_6bbta5yhrv1f6h$_#k7s@q+e'
-DEBUG = True
+
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = ["*"]
+
 
 
 # Application definition
@@ -22,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    "corsheaders",
     'cloudinary',
     'cloudinary_storage',
     'rest_framework',
@@ -33,15 +36,18 @@ INSTALLED_APPS = [
     'myCourses',
     'user',
 ]
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dl9l5fbmj',
-    'API_KEY': '722672568522351',
-    'API_SECRET': '-Ky6zwoHWQRuzmPxe79O7y33QGE'
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
 }
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,15 +130,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'cloudcomputingcell2@gmail.com'
-EMAIL_HOST_PASSWORD = 'qojn iuaa lrqb zdtm'
-
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
