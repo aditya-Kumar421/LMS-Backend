@@ -88,7 +88,7 @@ class CoursePostAPIView(APIView):
         serializer = CourseSerializer(course, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            course.update_review_statistics()  # Update review stats after update
+            course.update_review_statistics() 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

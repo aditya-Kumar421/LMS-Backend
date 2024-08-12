@@ -8,6 +8,7 @@ urlpatterns = [
     path('courses/', CourseAPIView.as_view()),
     path('coursesChange/', CoursePostAPIView.as_view()),
     path('courses/<int:pk>/', CourseAPIView.as_view()),
+    path('coursesChange/<int:pk>/', CoursePostAPIView.as_view()),
     path('lessons/', LessonAPIView.as_view()),
     path('lessons/<int:pk>/', LessonAPIView.as_view()),
     path('comment/<int:id>/', AddComment.as_view()),
