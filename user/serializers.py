@@ -22,7 +22,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             username=validated_data['username'],
             fullname=validated_data['fullname'],
-            role=validated_data['role'],
+            role=validated_data.get('role', 'student'),
             profile_pic=validated_data.get('profile_pic', None)
         )
         user.set_password(validated_data['password'])

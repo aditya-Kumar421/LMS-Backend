@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
     fullname = models.CharField(max_length=150)
-    role = models.CharField(max_length=10, choices=ROLES)
+    role = models.CharField(max_length=20, default="student")
     profile_pic = CloudinaryField('image', blank=True, null=True)
     balence = models.PositiveIntegerField(null=True, default=0)
     is_active = models.BooleanField(default=True)
