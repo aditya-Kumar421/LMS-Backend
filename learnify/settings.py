@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'myCourses',
     'user',
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
